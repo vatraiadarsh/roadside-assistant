@@ -3,8 +3,6 @@ const colors = require("colors");
 const morgan = require("morgan");
 
 const app = express();
-dotenv.config();
-connectDB();
 
 app.use(morgan("dev"));
 app.use(express.json());
