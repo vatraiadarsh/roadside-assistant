@@ -1,11 +1,24 @@
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "./components/App/Header";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/LoginPage";
+import Register from "./pages/RegisterPage";
 
-function App() {
+const App = () => {
   return (
     <>
-      <h1>Roadside assistance app</h1>
+      <BrowserRouter>
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+
+      </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;
