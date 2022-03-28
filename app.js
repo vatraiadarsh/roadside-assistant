@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const helmet = require("helmet");
 const colors = require("colors");
 const morgan = require("morgan");
 
@@ -11,6 +12,8 @@ connectDB();
 
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(helmet())
+
 
 
 app.use(express.static(__dirname + "/client/build"));
@@ -18,6 +21,8 @@ app.use(express.static(__dirname + "/client/build"));
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
 });
+
+app.use("/api/users", require("./routes/userRoutes"));
 
 
 
