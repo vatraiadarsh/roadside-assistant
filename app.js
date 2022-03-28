@@ -7,9 +7,13 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
+
+app.use(express.static(__dirname + "/client/build"));
+
 app.get("/", (req, res) => {
-    res.json({ testing: "successful ci/cd build for roadside assistence api" });
+  res.sendFile(__dirname + "/client/build/index.html");
 });
+
 
 
 const PORT = process.env.PORT || 5000;
