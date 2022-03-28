@@ -12,16 +12,15 @@ import { Link } from "react-router-dom";
 const RegisterPage = () => {
   return (
     <>
-      <Container text>
-        <Message
-          attached
-          icon="settings"
-          header="Get Started"
-          content="Create a new account"
-        />
+    <Container text style={{ marginTop: '7em' }}>
+
+      <h1>Please sign in</h1>
+
+      <br></br>
+      <br></br>
 
         <Form>
-          <Segment>
+        
             <Form.Input
               fluid
               icon="envelope"
@@ -48,17 +47,22 @@ const RegisterPage = () => {
               icon="sign in"
               color="facebook"
             />
-          </Segment>
+         
         </Form>
 
-        <Message attached="bottom">
-          <Icon name="user circle" />
-          Doesn't had an account? &nbsp;
-          <Link to="/register">
-            <a>Register here</a>&nbsp;
-          </Link>
-          Instead
-        </Message>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+        
       </Container>
     </>
   );

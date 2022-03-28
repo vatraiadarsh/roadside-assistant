@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Container,
   Divider,
@@ -9,13 +9,14 @@ import {
   Segment,
 } from "semantic-ui-react";
 
-
 function Footer() {
   return (
     <Segment
+      
       inverted
       vertical
-      style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
+      
+      style={{ margin: "5em 0em 0em", padding: "5em 0em" , }}
     >
       <Container textAlign="center">
         <Grid divided inverted stackable>
@@ -72,7 +73,8 @@ function Footer() {
           </List.Item>
         </List>
       </Container>
-    </Segment>  )
+    </Segment>
+  );
 }
 
-export default Footer
+export default Footer;

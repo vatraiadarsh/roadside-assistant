@@ -4,7 +4,8 @@ import { Container, Image, Menu, Icon } from "semantic-ui-react";
 
 const Header = () => {
   return (
-    <Menu className="menu">
+    // <Menu className="menu">
+    <Menu fixed='top' inverted>
     <Container>
       <Menu.Item>
         <Link to={"/"}>
