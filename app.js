@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
 });
 
-app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api", require("./routes/userRoutes"));
 
 
 
