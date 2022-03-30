@@ -11,7 +11,16 @@ import {
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
+import {useDispatch,useSelector} from "react-redux";
+import {register} from "../actions/userActions";
+
 const Register = () => {
+
+  const dispatch = useDispatch();
+  const userRegister = useSelector(state => state.userRegister);
+  const {loading,error,success} = userRegister;
+
+
   const INITIAL_STATE = {
     title: "",
     firstName: "",
@@ -28,7 +37,6 @@ const Register = () => {
   const [user, setUser] = useState(INITIAL_STATE);
   const [message, setMessage] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     const validateUser = Object.values(user).every((value) => value !== "");
@@ -52,17 +60,22 @@ const Register = () => {
   };
 
   const submitHandler = (e) => {
+    const {title,firstName,lastName,gender,email,date_of_birth,mobile_number,address,password} = user;
     e.preventDefault();
     if (user.password !== user.confirmPassword) {
-      setMessage(true);
+       setMessage(true);
+    }else{
+      
+    setMessage(false);
+    dispatch(register(title,firstName,lastName,gender,email,date_of_birth,mobile_number,address,password));
+
     }
-    console.log(user);
-  };
+     };
 
   const gender = [
-    { key: "m", text: "Male", value: "male" },
-    { key: "f", text: "Female", value: "female" },
-    { key: "o", text: "Other", value: "other" },
+    { key: "m", text: "Male", value: "Male" },
+    { key: "f", text: "Female", value: "Female" },
+    { key: "o", text: "Other", value: "Other" },
   ];
   const title = [
     { key: "mr", text: "Mr", value: "Mr" },
@@ -79,14 +92,21 @@ const Register = () => {
         <Header as="h2" textAlign="center">
           <Image src="/logo.png" /> Register a new account
         </Header>
-        {message && (
-          <Message
-            error
-            header="Password does not match"
-            content="Please enter the same password in both fields"
-          />
-        )}
-        <Form onSubmit={submitHandler}>
+          {error && <Message error content={error} />}
+          {success &&  
+            <Message
+            success
+            header="Thanks for signing Up! "
+            content="Please login with your credentials!"
+            /> }
+          {message && (
+            <Message
+              color="red"
+              header="Please check it out!"
+              content={"Password doesnot match"}
+            />
+          )}
+        <Form loading={loading} success={Boolean(success)} error={Boolean(error)} onSubmit={submitHandler}>
           <Segment piled color="blue">
             <Form.Select
               fluid

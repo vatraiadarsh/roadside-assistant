@@ -1,4 +1,5 @@
 import axios from "axios";
+import {API} from "../utils";
 
 import {
   USER_REGISTER_REQUEST,
@@ -31,7 +32,7 @@ export const register =
       };
 
       const { data } = await axios.post(
-        "/api/users/register",
+        `${API}/register`,
         {
           title,
           first_name: firstName,
@@ -54,9 +55,10 @@ export const register =
       localStorage.setItem("userInfo",JSON.stringify(data));
 
     } catch (error) {
+        console.log(error);
         dispatch({
             type:USER_REGISTER_FAILURE,
-            payload:error.response.data
+            payload:error.response?.data.error ? error.response.data.error : error.response
         })
     }
   };
