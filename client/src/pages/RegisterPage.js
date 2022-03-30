@@ -137,6 +137,8 @@ const Register = () => {
               fluid
               type="date"
               onChange={handleChange}
+              iconPosition="left"
+              icon="calendar"
               name="date_of_birth"
               value={user.date_of_birth}
             />
