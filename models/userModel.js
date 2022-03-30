@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -11,39 +11,39 @@ const userSchema = new Schema(
     },
     first_name: {
       type: String,
-      required: [true, "First name is required"],
+      required: true,
     },
     last_name: {
       type: String,
-      required: [true, "Last name is required"],
+      required: true,
     },
     gender: {
       type: String,
       enum: ["Male", "Female", "Others"],
-      required: [true, "please select your gender"],
+      required: true,
     },
     email: {
       type: String,
       unique: true,
-      required: [true, "Email is required"],
+      required: true,
     },
 
     date_of_birth: {
       type: Date,
-      required: [true, "Date of birth is required"],
+      required: true,
     },
     mobile_number: {
       type: Number,
-      required: [true, "Mobile number is required"],
+      required: true,
     },
     address: {
       type: String,
-      required: [true, "Address is required"],
+      required: true,
     },
 
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: true,
     },
     avatar: {
       type: String,
@@ -57,22 +57,16 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-
-
-userSchema.methods.matchPassword = async function (enteredPassword){
+userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
-}
+};
 
-userSchema.pre("save", async function (next){
-  if(this.isModified("password")){
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
     const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password,salt);
+    this.password = await bcrypt.hash(this.password, salt);
   }
-})
-
-
-
-
+});
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
