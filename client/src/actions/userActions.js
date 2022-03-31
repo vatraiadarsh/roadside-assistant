@@ -32,7 +32,7 @@ export const register =
       };
 
       const { data } = await axios.post(
-        `/register`,
+        `/api/register`,
         {
           title,
           first_name: firstName,
