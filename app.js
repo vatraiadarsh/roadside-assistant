@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const colors = require("colors");
 const morgan = require("morgan");
-
 const connectDB = require("./config/db");
 
 const app = express();
@@ -22,12 +21,12 @@ app.use(helmet())
 app.use(express.static(__dirname + "/client/build"));
 
 
-app.use("/api", require("./routes/userRoutes"));
 
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
 });
 
+app.use("/api", require("./routes/userRoutes"));
 
 
 const PORT = process.env.PORT || 5000;

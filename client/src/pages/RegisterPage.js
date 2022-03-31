@@ -41,7 +41,6 @@ const Register = () => {
   useEffect(() => {
     const validateUser = Object.values(user).every((value) => value !== "");
     validateUser ? setDisabled(false) : setDisabled(true);
-    console.log(validateUser);
   }, [user]);
 
   const handleChange = (e) => {

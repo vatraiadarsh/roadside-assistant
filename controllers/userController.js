@@ -16,7 +16,6 @@ exports.register = asyncHandler(async(req,res,next) => {
     const userExists = await User.findOne({email});
     if (userExists) {
         res.status(404);
-        // throw new Error("User already exists");
         return res.json({error:"User already exists"});
     }
 
@@ -32,9 +31,10 @@ exports.register = asyncHandler(async(req,res,next) => {
         })
     }else{
         res.status(400);
-        throw new Error("Invalid user data");
+        return res.json({error:"Invalid user data"});
     }
     next();
-
-
 });
+
+
+
