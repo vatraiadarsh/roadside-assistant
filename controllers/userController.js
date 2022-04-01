@@ -1,15 +1,8 @@
 const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
+const {generateToken} = require("../utils");
 
-
-
-
-// @route   POST api/users/register
-// @desc    Register user
-// @access  Public
-
-
-exports.register = asyncHandler(async(req,res,next) => {
+exports.register = asyncHandler(async(req,res) => {
     const { title, first_name, last_name,gender,email,date_of_birth,mobile_number,address,password} = req.body;
 
 
@@ -33,7 +26,34 @@ exports.register = asyncHandler(async(req,res,next) => {
         res.status(400);
         return res.json({error:"Invalid user data"});
     }
-    next();
+});
+
+
+exports.login = asyncHandler(async(req,res) => {
+
+    const {email,password} = req.body;
+
+    const user = await User.findOne({email});
+    if (user && await user.matchPassword(password)) {
+        res.json({
+            _id:user._id,
+            title:user.title,
+            first_name:user.first_name,
+            last_name:user.last_name,
+            gender:user.gender,
+            email:user.email,
+            date_of_birth:user.date_of_birth,
+            mobile_number:user.mobile_number,
+            address:user.address,
+            role:user.role,
+            token:generateToken(user._id)
+        })        
+    }else{
+    res.status(401);
+    return res.json({error:"Invalid email or password"});     
+    }
+  
+
 });
 
 

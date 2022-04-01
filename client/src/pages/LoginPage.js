@@ -9,14 +9,18 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import {useSelector,useDispatch} from "react-redux";
+import {login} from "../actions/userActions";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, userInfo, error } = userLogin;
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
@@ -28,7 +32,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(login(formData.email, formData.password));
   };
 
   return (
@@ -37,7 +41,9 @@ const Login = () => {
         <Header as="h2" textAlign="center">
           <Image src="/logo.png" /> Log-in to your account
         </Header>
-        <Form onSubmit={handleSubmit}>
+        {error && <Message error content={error} />}
+
+        <Form loading={loading} onSubmit={handleSubmit}>
           <Segment stacked>
             <Form.Input
               fluid

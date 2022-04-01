@@ -13,3 +13,8 @@ exports.userRegistrationValidator = [
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
 ];
 
+exports.userLoginValidator = [
+    body('email').isEmail().normalizeEmail().withMessage('Email must be valid'),
+    body('password').notEmpty().withMessage('Password is required'),
+];
+
