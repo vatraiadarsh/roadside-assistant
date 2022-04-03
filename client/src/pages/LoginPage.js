@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom"
 import {
   Button,
   Form,
@@ -14,12 +15,13 @@ import {login} from "../actions/userActions";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userInfo, error } = userLogin;
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "apple@apple.com",
+    password: "appleapple",
   });
   const [disabled, setDisabled] = useState(false);
 
@@ -33,6 +35,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(formData.email, formData.password));
+    navigate("/profile");
+
   };
 
   return (

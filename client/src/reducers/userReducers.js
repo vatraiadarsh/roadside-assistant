@@ -5,6 +5,7 @@ const {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
+  USER_INFO_RESET,
 } = require("../constants/userConstants");
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -28,6 +29,8 @@ export const userLoginReducer = (state = {}, action) => {
       return { loading: false, success: true, userInfo: action.payload };
     case USER_LOGIN_FAILURE:
       return { loading: false, error: action.payload };
+    case USER_INFO_RESET:
+      return {};
     default:
       return state;
   }

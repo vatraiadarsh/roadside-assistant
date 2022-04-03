@@ -3,7 +3,10 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import { userRegisterReducer, userLoginReducer } from "./reducers/userReducers";
+import {
+  userRegisterReducer,
+  userLoginReducer,
+} from "./reducers/userReducers";
 
 // save userInfo to the store
 const userInfoFromStorege = localStorage.getItem("userInfo")

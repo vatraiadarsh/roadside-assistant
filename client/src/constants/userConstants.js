@@ -5,3 +5,7 @@ export const USER_REGISTER_FAILURE = "USER_REGISTER_FAILURE";
 export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAILURE = "USER_LOGIN_FAILURE";
+
+export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
+// resetting the user info from react store too.
+export const USER_INFO_RESET = "USER_INFO_RESET";
