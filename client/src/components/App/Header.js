@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Container, Image, Menu, Icon } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
@@ -19,7 +19,7 @@ const Header = () => {
     <Menu fixed="top" inverted>
       <Container>
         <Menu.Item>
-          <Link to={"/"}>
+          <NavLink to={"/"}>
             <Menu.Item header>
               <Image
                 size="mini"
@@ -28,36 +28,36 @@ const Header = () => {
               />
               Roadside Assistance
             </Menu.Item>
-          </Link>
-          <Link to="/">
-            <Menu.Item >
+          </NavLink>
+          <NavLink to="/">
+            <Menu.Item>
               <Icon name="home" size="large" />
               Home
             </Menu.Item>
-          </Link>
+          </NavLink>
 
-          <Link to="/">
+          <NavLink to="/">
             <Menu.Item>
               <Icon name="car" size="large" />
               Assistant
             </Menu.Item>
-          </Link>
+          </NavLink>
         </Menu.Item>
 
         {!userInfo ? (
           <Menu.Item position="right">
-            <Link to="/login">
+            <NavLink to="/login">
               <Menu.Item header>
                 <Icon name="user" size="large" />
                 Login
               </Menu.Item>
-            </Link>
-            <Link to="/register">
+            </NavLink>
+            <NavLink to="/register">
               <Menu.Item header>
                 <Icon name="user plus" size="large" />
                 Register
               </Menu.Item>
-            </Link>
+            </NavLink>
           </Menu.Item>
         ) : (
           <Menu.Item position="right">
@@ -67,12 +67,12 @@ const Header = () => {
                 userInfo.first_name.charAt(0).toUpperCase() +
                   userInfo.first_name.slice(1)}
             </Menu.Item>
-            <Link to="/profile">
+            <NavLink to="/profile">
               <Menu.Item>
                 <Icon name="user secret" size="large" />
                 Profile
               </Menu.Item>
-            </Link>
+            </NavLink>
 
             <Menu.Item onClick={handleLogout}>
               <Icon name="sign out" size="large" />

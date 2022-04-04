@@ -17,7 +17,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userInfo, error } = userLogin;
+  const { loading, userInfo, error, success } = userLogin;
 
   const [formData, setFormData] = useState({
     email: "apple@apple.com",
@@ -29,14 +29,16 @@ const Login = () => {
     const { email, password } = formData;
     const validateUser = email !== "" && password !== "";
     validateUser ? setDisabled(false) : setDisabled(true);
-    console.log(validateUser);
-  }, [formData]);
+
+    if (success) {
+      navigate("/profile");
+    }
+
+  }, [formData,success]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(formData.email, formData.password));
-    navigate("/");
-
   };
 
   return (
