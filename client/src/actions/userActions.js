@@ -152,9 +152,8 @@ export const updateProfile =
         type: USER_PROFILE_UPDATE_SUCCESS,
         payload:data
       });
-      // dispatch({
-      //   type: USER_INFO_RESET,
-      // })
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      
     } catch (error) {
       dispatch({
         type: USER_PROFILE_UPDATE_FAILURE,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Segment, Button, Icon } from "semantic-ui-react";
+import { Form, Segment, Button, Icon, Message } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { gender as g, title as t } from "../../utils/index";
 import { updateProfile } from "../../actions/userActions";
@@ -8,8 +8,10 @@ function EditProfile() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const formatted_date = (userInfo?.date_of_birth.split("T")[0] || "");
-  console.log(formatted_date);
+  const profileUpdate = useSelector((state) => state.profileUpdate);
+  const { loading, error, success } = profileUpdate;
+
+  const formatted_date = userInfo?.date_of_birth.split("T")[0] || "";
 
   const INITIAL_STATE = {
     title: userInfo?.title,
@@ -60,10 +62,16 @@ function EditProfile() {
         mobile_number
       )
     );
-    console.log(user);
   };
 
   useEffect(() => {
+    // watch for the success of profile update
+    // if profile is updated eg:Name : instead of updating every piece of component(Header,ProfileInfo),
+    //  i have just reloaded the window where redux store will fetch the updated data from local storage.
+    if (success) {
+      window.location.reload();
+    }
+
     if (
       user.title === userInfo?.title &&
       user.first_name === userInfo?.first_name &&
@@ -78,14 +86,20 @@ function EditProfile() {
     } else {
       setDisabled(false);
     }
-  }, [user, userInfo]);
+  }, [user, userInfo, success]);
   return (
     <>
+      <Message success hidden={!success}>
+        <Message.Header>Profile Updated Successfully</Message.Header>
+      </Message>
+      <Message error hidden={!error}>
+        <Message.Header>{error}</Message.Header>
+      </Message>
       <div style={{ marginBottom: "1rem" }}>
         <Icon name="edit" />
         Edit Profile
       </div>
-      <Form onSubmit={handleSubmit}>
+      <Form loading={loading} onSubmit={handleSubmit}>
         <Segment stacked color="green">
           <Form.Select
             fluid
@@ -94,6 +108,7 @@ function EditProfile() {
             name="title"
             onChange={handleSelectChange}
             value={user.title}
+            required
           />
 
           <Form.Input
@@ -104,6 +119,7 @@ function EditProfile() {
             onChange={handleChange}
             name="first_name"
             value={user.first_name}
+            required
           />
           <Form.Input
             fluid
@@ -113,6 +129,7 @@ function EditProfile() {
             onChange={handleChange}
             name="last_name"
             value={user.last_name}
+            required
           />
           <Form.Select
             fluid
@@ -121,6 +138,7 @@ function EditProfile() {
             onChange={handleSelectChange}
             name="gender"
             value={user.gender}
+            required
           />
 
           <Form.Input
@@ -131,6 +149,7 @@ function EditProfile() {
             onChange={handleChange}
             name="email"
             value={user.email}
+            required
           />
 
           <Form.Input
@@ -141,6 +160,7 @@ function EditProfile() {
             icon="calendar"
             name="date_of_birth"
             value={user.date_of_birth}
+            required
           />
 
           <Form.Input
@@ -152,6 +172,7 @@ function EditProfile() {
             onChange={handleChange}
             name="mobile_number"
             value={user.mobile_number}
+            required
           />
 
           <Form.Input
@@ -162,9 +183,15 @@ function EditProfile() {
             onChange={handleChange}
             name="address"
             value={user.address}
+            required
           />
 
-          <Button disabled={disabled} color="green" fluid size="large">
+          <Button
+            disabled={disabled || success}
+            color="green"
+            fluid
+            size="large"
+          >
             Update Profile
           </Button>
         </Segment>

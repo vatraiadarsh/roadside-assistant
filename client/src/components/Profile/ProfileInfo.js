@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Table, Icon } from "semantic-ui-react";
 
@@ -9,7 +8,6 @@ function ProfileInfo() {
   const formatted_date = new Date(userInfo?.date_of_birth)
     .toString()
     .slice(0, 16);
-
 
   return (
     <>
