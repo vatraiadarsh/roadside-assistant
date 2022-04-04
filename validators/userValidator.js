@@ -5,7 +5,7 @@ exports.userRegistrationValidator = [
     body('title', 'Title is required').notEmpty().isIn(['Mr', 'Mrs', 'Miss', 'Ms', 'Dr', 'Prof']),
     body('first_name', 'First name is required and should be more than 3 chars').notEmpty().isLength({ min: 3 }),
     body('last_name', 'Last name is required and should be more than 3 chars').notEmpty().isLength({ min: 3 }),
-    body('gender').isIn(["Male", "Female", "Others"]),
+    body('gender').isIn(["Male", "Female", "Other"]),
     body('email').isEmail().normalizeEmail().withMessage('Email must be valid'),
     body('date_of_birth').isDate(),
     body('mobile_number').isLength({ min: 10 }).withMessage('Mobile number must be at least 10 characters long'),

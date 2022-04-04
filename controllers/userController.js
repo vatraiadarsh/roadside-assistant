@@ -87,13 +87,42 @@ exports.login = asyncHandler(async (req, res) => {
   }
 });
 
-exports.profile = asyncHandler(async (req, res) => {
-    console.log("REq user",req.user);
-    const user = await User.findById(req.user.id).select("-password");
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404);
-      return res.json({ error: "User not found" });
-    }
+exports.getProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id).select("-password");
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    return res.json({ error: "User not found" });
+  }
+});
+
+exports.updateProfile = asyncHandler(async (req, res) => {
+
+  const user = await User.findById(req.user.id);
+  if (user) {
+    user.title = req.body.title || user.title;
+    user.first_name = req.body.first_name || user.first_name;
+    user.last_name = req.body.last_name || user.last_name;
+    user.gender = req.body.gender || user.gender;
+    user.email = req.body.email || user.email;
+    user.date_of_birth = req.body.date_of_birth || user.date_of_birth;
+    user.mobile_number = req.body.mobile_number || user.mobile_number;
+    user.address = req.body.address || user.address;
+  }
+
+  const updatedUser = await user.save();
+  res.json({
+    _id: updatedUser._id,
+    title: updatedUser.title,
+    first_name: updatedUser.first_name,
+    last_name: updatedUser.last_name,
+    gender: updatedUser.gender,
+    email: updatedUser.email,
+    date_of_birth: updatedUser.date_of_birth,
+    mobile_number: updatedUser.mobile_number,
+    address: updatedUser.address,
+    role: updatedUser.role,
+    token: generateToken(updatedUser._id)
+  });
 });

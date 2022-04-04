@@ -116,11 +116,11 @@ export const updateProfile =
     title,
     first_name,
     last_name,
-    gender,
     email,
+    gender,
     date_of_birth,
+    address,
     mobile_number,
-    address
   ) =>
   async (dispatch,getState) => {
     try {
@@ -152,6 +152,9 @@ export const updateProfile =
         type: USER_PROFILE_UPDATE_SUCCESS,
         payload:data
       });
+      // dispatch({
+      //   type: USER_INFO_RESET,
+      // })
     } catch (error) {
       dispatch({
         type: USER_PROFILE_UPDATE_FAILURE,

@@ -2,27 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Form, Segment, Button, Icon } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { gender as g, title as t } from "../../utils/index";
+import { updateProfile } from "../../actions/userActions";
 
 function EditProfile() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const formatted_date = new Date(userInfo.date_of_birth)
-    .toISOString()
-    .slice(0, 10);
-
-    
-  // console.log(formatted_date);
+  const formatted_date = (userInfo?.date_of_birth.split("T")[0] || "");
+  console.log(formatted_date);
 
   const INITIAL_STATE = {
-    title: userInfo.title,
-    first_name: userInfo.first_name,
-    last_name: userInfo.last_name,
-    gender: userInfo.gender,
-    email: userInfo.email,
+    title: userInfo?.title,
+    first_name: userInfo?.first_name,
+    last_name: userInfo?.last_name,
+    gender: userInfo?.gender,
+    email: userInfo?.email,
     date_of_birth: formatted_date,
-    mobile_number: userInfo.mobile_number,
-    address: userInfo.address,
+    mobile_number: userInfo?.mobile_number,
+    address: userInfo?.address,
   };
 
   const [user, setUser] = useState(INITIAL_STATE);
@@ -40,32 +37,48 @@ function EditProfile() {
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
-    //  const {title,first_name,last_name,email,gender,date_of_birth,address,mobile_number} = user;
+    const {
+      title,
+      first_name,
+      last_name,
+      email,
+      gender,
+      date_of_birth,
+      address,
+      mobile_number,
+    } = user;
     e.preventDefault();
-    // dispatch(register(title,first_name,last_name,email,gender,date_of_birth,address,mobile_number));
+    dispatch(
+      updateProfile(
+        title,
+        first_name,
+        last_name,
+        email,
+        gender,
+        date_of_birth,
+        address,
+        mobile_number
+      )
+    );
     console.log(user);
   };
 
   useEffect(() => {
     if (
-      user.title === userInfo.title &&
-      user.first_name === userInfo.first_name &&
-      user.last_name === userInfo.last_name &&
-      user.gender === userInfo.gender &&
-      user.email === userInfo.email &&
-      user.date_of_birth === userInfo.date_of_birth.slice(0,10) &&
-      user.mobile_number === userInfo.mobile_number &&
-      user.address === userInfo.address
+      user.title === userInfo?.title &&
+      user.first_name === userInfo?.first_name &&
+      user.last_name === userInfo?.last_name &&
+      user.gender === userInfo?.gender &&
+      user.email === userInfo?.email &&
+      user.date_of_birth === userInfo?.date_of_birth.slice(0, 10) &&
+      user.mobile_number === userInfo?.mobile_number &&
+      user.address === userInfo?.address
     ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
   }, [user, userInfo]);
-
-  // console.log(user.date_of_birth);
-  // console.log(userInfo.date_of_birth.slice(0, 10));
-
   return (
     <>
       <div style={{ marginBottom: "1rem" }}>
