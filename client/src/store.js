@@ -6,6 +6,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   userRegisterReducer,
   userLoginReducer,
+  profileUpdateReducer,
 } from "./reducers/userReducers";
 
 // save userInfo to the store
@@ -21,6 +22,7 @@ const initialState = {
 const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userLogin: userLoginReducer,
+  profileUpdate: profileUpdateReducer,
 });
 
 const middlewares = [thunk, logger];
@@ -32,3 +34,4 @@ const store = createStore(
 );
 
 export default store;
+

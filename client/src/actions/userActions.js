@@ -9,6 +9,9 @@ import {
   USER_LOGIN_FAILURE,
   USER_LOGOUT_SUCCESS,
   USER_INFO_RESET,
+  USER_PROFILE_UPDATE_REQUEST,
+  USER_PROFILE_UPDATE_SUCCESS,
+  USER_PROFILE_UPDATE_FAILURE,
 } from "../constants/userConstants";
 
 export const register =
@@ -107,3 +110,54 @@ export const logout = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT_SUCCESS });
   dispatch({ type: USER_INFO_RESET });
 };
+
+export const updateProfile =
+  (
+    title,
+    first_name,
+    last_name,
+    gender,
+    email,
+    date_of_birth,
+    mobile_number,
+    address
+  ) =>
+  async (dispatch,getState) => {
+    try {
+      dispatch({
+        type: USER_PROFILE_UPDATE_REQUEST,
+      });
+
+      const{userLogin:{userInfo}} = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const {data} = await axios.put(`/api/profile`, {
+        title,
+        first_name,
+        last_name,
+        gender,
+        email,
+        date_of_birth,
+        mobile_number,
+        address
+      }, config);
+
+      dispatch({
+        type: USER_PROFILE_UPDATE_SUCCESS,
+        payload:data
+      });
+    } catch (error) {
+      dispatch({
+        type: USER_PROFILE_UPDATE_FAILURE,
+        payload: error.response?.data.error
+          ? error.response.data.error
+          : error.response,
+      });
+    }
+  };

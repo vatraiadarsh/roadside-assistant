@@ -7,12 +7,13 @@ import {
   Image,
   Message,
   Segment,
-  Select,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import {useDispatch,useSelector} from "react-redux";
 import {register} from "../actions/userActions";
+
+const {gender,title} = require("../utils/index");
 
 const Register = () => {
 
@@ -71,19 +72,7 @@ const Register = () => {
     }
      };
 
-  const gender = [
-    { key: "m", text: "Male", value: "Male" },
-    { key: "f", text: "Female", value: "Female" },
-    { key: "o", text: "Other", value: "Other" },
-  ];
-  const title = [
-    { key: "mr", text: "Mr", value: "Mr" },
-    { key: "mrs", text: "Mrs", value: "Mrs" },
-    { key: "miss", text: "Miss", value: "Miss" },
-    { key: "ms", text: "Ms", value: "Ms" },
-    { key: "dr", text: "Dr", value: "Dr" },
-    { key: "prof", text: "Prof", value: "Prof" },
-  ];
+
 
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">

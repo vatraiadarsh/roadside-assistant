@@ -20,13 +20,13 @@ app.use(helmet())
 
 app.use(express.static(__dirname + "/client/build"));
 
+app.use("/api", require("./routes/userRoutes"));
 
 
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
 });
 
-app.use("/api", require("./routes/userRoutes"));
 
 
 const PORT = process.env.PORT || 5000;

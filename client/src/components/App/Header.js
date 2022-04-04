@@ -67,7 +67,7 @@ const Header = () => {
                 userInfo.first_name.charAt(0).toUpperCase() +
                   userInfo.first_name.slice(1)}
             </Menu.Item>
-            <Link to="/">
+            <Link to="/profile">
               <Menu.Item>
                 <Icon name="user secret" size="large" />
                 Profile
