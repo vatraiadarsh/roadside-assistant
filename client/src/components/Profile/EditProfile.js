@@ -1,15 +1,18 @@
-import React,{useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Segment, Button, Icon } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { gender as g, title as t } from "../../utils/index";
 
 function EditProfile() {
   const userLogin = useSelector((state) => state.userLogin);
-  const {userInfo}  = userLogin;
+  const { userInfo } = userLogin;
 
-  const formatted_date = new Date(userInfo.date_of_birth).toISOString().slice(0, 10);
+  const formatted_date = new Date(userInfo.date_of_birth)
+    .toISOString()
+    .slice(0, 10);
+
+    
   // console.log(formatted_date);
-
 
   const INITIAL_STATE = {
     title: userInfo.title,
@@ -17,12 +20,13 @@ function EditProfile() {
     last_name: userInfo.last_name,
     gender: userInfo.gender,
     email: userInfo.email,
-    date_of_birth:formatted_date,
+    date_of_birth: formatted_date,
     mobile_number: userInfo.mobile_number,
     address: userInfo.address,
   };
 
   const [user, setUser] = useState(INITIAL_STATE);
+  const [disabled, setDisabled] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,8 +44,27 @@ function EditProfile() {
     e.preventDefault();
     // dispatch(register(title,first_name,last_name,email,gender,date_of_birth,address,mobile_number));
     console.log(user);
-  }
+  };
 
+  useEffect(() => {
+    if (
+      user.title === userInfo.title &&
+      user.first_name === userInfo.first_name &&
+      user.last_name === userInfo.last_name &&
+      user.gender === userInfo.gender &&
+      user.email === userInfo.email &&
+      user.date_of_birth === userInfo.date_of_birth.slice(0,10) &&
+      user.mobile_number === userInfo.mobile_number &&
+      user.address === userInfo.address
+    ) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [user, userInfo]);
+
+  // console.log(user.date_of_birth);
+  // console.log(userInfo.date_of_birth.slice(0, 10));
 
   return (
     <>
@@ -49,7 +72,7 @@ function EditProfile() {
         <Icon name="edit" />
         Edit Profile
       </div>
-      <Form onSubmit={handleSubmit} >
+      <Form onSubmit={handleSubmit}>
         <Segment stacked color="green">
           <Form.Select
             fluid
@@ -66,7 +89,7 @@ function EditProfile() {
             iconPosition="left"
             placeholder="First Name"
             onChange={handleChange}
-            name="firstName"
+            name="first_name"
             value={user.first_name}
           />
           <Form.Input
@@ -75,7 +98,7 @@ function EditProfile() {
             iconPosition="left"
             placeholder="Last Name"
             onChange={handleChange}
-            name="lastName"
+            name="last_name"
             value={user.last_name}
           />
           <Form.Select
@@ -105,7 +128,6 @@ function EditProfile() {
             icon="calendar"
             name="date_of_birth"
             value={user.date_of_birth}
-            
           />
 
           <Form.Input
@@ -129,7 +151,7 @@ function EditProfile() {
             value={user.address}
           />
 
-          <Button  color="green" fluid size="large">
+          <Button disabled={disabled} color="green" fluid size="large">
             Update Profile
           </Button>
         </Segment>
