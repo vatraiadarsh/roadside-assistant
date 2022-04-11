@@ -142,7 +142,11 @@ exports.getAllUsers = asyncHandler(async (req, res) => {
 
 exports.makeProfessional = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
-  if (user) {
+  const role = user.role;
+  if (role === "professional") {
+    user.role = "user";
+  };
+  if (role === "user") {
     user.role = "professional";
   }
 

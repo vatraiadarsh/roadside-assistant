@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
-import { Card, Container, Divider, Grid, Icon, Image, Segment,Label, Loader, Button, Message } from 'semantic-ui-react';
+import { Card, Container, Divider, Grid, Icon, Image, Segment, Label, Loader, Button, Message } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserList, makeProfessional } from "../../actions/userActions";
 
@@ -36,14 +36,14 @@ function ManageUsers() {
       <div style={{ marginTop: "12rem" }}></div>
       {loading ? (<Loader active inline='centered' />) : (
         <Segment  >
-         {successMakeProfessional && (<Message success content="User is now a professional" />)}
+          {successMakeProfessional && (<Message success content="Role updated successfully." />)}
           {errorMakeProfessional && (<Message error content={errorMakeProfessional} />)}
           <Grid columns={3}>
             <Grid.Row>
               {usrs?.map((usr) => (
                 <Grid.Column key={usr._id}>
                   <Card>
-                    <Image src={usr.avatar} wrapped ui={false} />
+                    <Image src={usr?.avatar? usr.avatar : "/noimage.jpg" } wrapped ui={false} />
                     <Card.Content>
                       <Card.Header>{usr.title}{" "}{usr.first_name} {usr.last_name}</Card.Header>
                       <Card.Meta>
@@ -56,41 +56,44 @@ function ManageUsers() {
                     <Card.Content extra>
 
                       {usr.role === "admin" ? (
-                        // <a color='blue'>
-                        //   <Icon name='user' />
-                        //   {usr?.role}
-                        // </a>
                         <Label as='a' color='red' ribbon>
-                        Admin
-                      </Label>
-                      ):""}
+                          Admin
+                        </Label>
+                      ) : ""}
 
                       {usr.role === "professional" ? (
-                        <Label as='a' color='black' ribbon>
-                        professional
-                      </Label>
-                      ):""}
-                      
-                      {usr.role === "user" ? (
-                        <div className='ui two buttons'>
-                          <Button>
-                            <a>
-                              <Icon name='user' />
-                              {usr.role}
-                            </a>
-                          </Button>
-                          <Button secondary 
+                        <>
+                          <Label color='olive' ribbon>
+                            professional
+                          </Label>
+                          
+                          <Button secondary
                             onClick={() => {
                               dispatch(makeProfessional(usr._id));
                               dispatch(getUserList());
                             }}
-                            >
-                            Make Professional
+                          >
+                            Make User
                           </Button>
-                      
-                         
-                        </div>
-                      ):""}
+                        </>
+                      ) : ""}
+
+                      {usr.role === "user" ? (
+                        <>
+                        <Label color='black' ribbon>
+                          User
+                        </Label>
+                        
+                        <Button color='green'
+                          onClick={() => {
+                            dispatch(makeProfessional(usr._id));
+                            dispatch(getUserList());
+                          }}
+                        >
+                          Make professional
+                        </Button>
+                      </>
+                      ) : ""}
 
                     </Card.Content>
                   </Card>
