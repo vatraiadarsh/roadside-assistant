@@ -7,6 +7,7 @@ import {
   userRegisterReducer,
   userLoginReducer,
   profileUpdateReducer,
+  userListReducer,
 } from "./reducers/userReducers";
 
 // save userInfo to the store
@@ -23,6 +24,8 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userLogin: userLoginReducer,
   profileUpdate: profileUpdateReducer,
+  userList: userListReducer,
+ 
 });
 
 const middlewares = [thunk, logger];

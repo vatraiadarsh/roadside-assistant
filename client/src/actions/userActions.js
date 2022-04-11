@@ -12,6 +12,9 @@ import {
   USER_PROFILE_UPDATE_REQUEST,
   USER_PROFILE_UPDATE_SUCCESS,
   USER_PROFILE_UPDATE_FAILURE,
+  USER_LIST_FAILURE,
+  USER_LIST_SUCCESS,
+  USER_LIST_REQUEST,
 } from "../constants/userConstants";
 
 export const register =
@@ -165,3 +168,35 @@ export const updateProfile =
       });
     }
   };
+
+
+export const getUserList = () => async (dispatch,getState) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+
+    const{userLogin:{userInfo}} = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/users`, config);
+
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAILURE,
+      payload: error.response?.data.error
+        ? error.response.data.error
+        : error.response,
+    });
+  }
+};

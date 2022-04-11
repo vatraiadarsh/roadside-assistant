@@ -44,6 +44,9 @@ const Header = () => {
           </NavLink>
         </Menu.Item>
 
+        
+        
+
         {!userInfo ? (
           <Menu.Item position="right">
             <NavLink to="/login">
@@ -71,6 +74,15 @@ const Header = () => {
                 Profile
               </Menu.Item>
             </NavLink>
+
+            {userInfo? userInfo.role === "admin" && (
+            <Menu.Item >
+            <NavLink to="/admin/users">
+              <Icon name="user" size="large" />
+              Manage <br/> professionals
+              </NavLink>
+              </Menu.Item>
+            ) : null}
 
             <Menu.Item onClick={handleLogout}>
               <Icon name="sign out" size="large" />

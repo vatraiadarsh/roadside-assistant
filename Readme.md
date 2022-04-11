@@ -35,11 +35,13 @@ deducted from their credit card and will be credited to the
 professional's account (after a certain commission fee is taken).
 
 The system supports the following key goals ( can be discuss with the
-detailed and specific requirements): • Manage customer memberships
-including types of users, user profiles and subscriptions. • Manage
-roadside assistance professionals • Manage road assistance service
-requests • Manage payment transactions • Manage reviews and ratings •
-Manage report generation (e.g. payment reports, service reports, etc.)
+detailed and specific requirements): 
+• Manage customer memberships including types of users, user profiles and subscriptions.
+• Manage roadside assistance professionals 
+• Manage road assistance service requests 
+• Manage payment transactions 
+• Manage reviews and ratings
+• Manage report generation (e.g. payment reports, service reports, etc.)
 
 Create test data that is sufficiently large enough to simulate the
 system (e.g. at minimum 20 motorists, 100 roadside assistance

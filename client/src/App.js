@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import Login from "./pages/LoginPage";
 import Register from "./pages/RegisterPage";
 import Profile from "./pages/ProfilePage";
+import ManageUsers from "./pages/Admin/ManageUsers";
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin/users" element={<ManageUsers/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>

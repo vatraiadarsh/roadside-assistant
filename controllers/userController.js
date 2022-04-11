@@ -82,7 +82,7 @@ exports.login = asyncHandler(async (req, res) => {
       mobile_number: user.mobile_number,
       address: user.address,
       role: user.role,
-      avatar:user.avatar,
+      avatar: user.avatar,
       token: generateToken(user._id),
     });
   } else {
@@ -115,7 +115,7 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     user.avatar = req.body.avatar || user.avatar;
   }
 
- 
+
   const updatedUser = await user.save();
   console.log(updatedUser);
   res.json({
@@ -133,4 +133,9 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
     token: generateToken(updatedUser._id),
   });
   next();
+});
+
+exports.getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
 });

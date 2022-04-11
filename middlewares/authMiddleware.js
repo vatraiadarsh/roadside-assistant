@@ -21,11 +21,12 @@ exports.protect = asyncHandler(async (req, res, next) => {
 });
 
 // authorise admin
-
 exports.authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      return res.status(401).send({ error: "Unauthorized" });
+      return res.status(401).json({
+        error: "You are not authorized to perform this action",
+      });
     }
     next();
   };
