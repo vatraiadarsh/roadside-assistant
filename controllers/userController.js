@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
+
 const { generateToken } = require("../utils");
 
 exports.register = asyncHandler(async (req, res) => {
@@ -43,6 +44,7 @@ exports.register = asyncHandler(async (req, res) => {
       date_of_birth,
       mobile_number,
       address,
+      avatar,
       password,
     } = user;
     res.json({
@@ -55,6 +57,7 @@ exports.register = asyncHandler(async (req, res) => {
       date_of_birth,
       mobile_number,
       address,
+      avatar,
       password,
     });
   } else {
@@ -79,6 +82,7 @@ exports.login = asyncHandler(async (req, res) => {
       mobile_number: user.mobile_number,
       address: user.address,
       role: user.role,
+      avatar:user.avatar,
       token: generateToken(user._id),
     });
   } else {
@@ -97,8 +101,7 @@ exports.getProfile = asyncHandler(async (req, res) => {
   }
 });
 
-exports.updateProfile = asyncHandler(async (req, res) => {
-
+exports.updateProfile = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
   if (user) {
     user.title = req.body.title || user.title;
@@ -109,9 +112,12 @@ exports.updateProfile = asyncHandler(async (req, res) => {
     user.date_of_birth = req.body.date_of_birth || user.date_of_birth;
     user.mobile_number = req.body.mobile_number || user.mobile_number;
     user.address = req.body.address || user.address;
+    user.avatar = req.body.avatar || user.avatar;
   }
 
+ 
   const updatedUser = await user.save();
+  console.log(updatedUser);
   res.json({
     _id: updatedUser._id,
     title: updatedUser.title,
@@ -123,6 +129,8 @@ exports.updateProfile = asyncHandler(async (req, res) => {
     mobile_number: updatedUser.mobile_number,
     address: updatedUser.address,
     role: updatedUser.role,
-    token: generateToken(updatedUser._id)
+    avatar: updatedUser.avatar,
+    token: generateToken(updatedUser._id),
   });
+  next();
 });

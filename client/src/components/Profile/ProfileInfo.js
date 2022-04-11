@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Table, Icon } from "semantic-ui-react";
+import { Table, Icon,Image } from "semantic-ui-react";
 
 function ProfileInfo() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -11,13 +11,13 @@ function ProfileInfo() {
 
   return (
     <>
+      <Image size="medium"  src={userInfo?.avatar} alt="avatar" />
       <Table celled striped>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell colSpan="3">Profile</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
         <Table.Body>
           <Table.Row>
             <Table.Cell collapsing>

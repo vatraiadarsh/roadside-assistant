@@ -23,16 +23,16 @@ const Register = () => {
 
 
   const INITIAL_STATE = {
-    title: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
-    email: "",
-    date_of_birth: "",
-    mobile_number: "",
-    address: "",
-    password: "",
-    confirmPassword: "",
+    title: "Mr",
+    firstName: "Adarsha",
+    lastName: "Bhattarai",
+    gender: "Male",
+    email: "apple@apple.com",
+    date_of_birth: "2011-03-09",
+    mobile_number: "9876433234",
+    address: "234 apple street",
+    password: "appleapple",
+    confirmPassword: "appleapple",
   };
 
   const [user, setUser] = useState(INITIAL_STATE);
@@ -102,6 +102,7 @@ const Register = () => {
               placeholder="Title"
               name="title"
               onChange={handleSelectChange}
+              value={user.title}
             />
 
             <Form.Input
@@ -194,7 +195,7 @@ const Register = () => {
             />
 
             <Button
-              disabled={disabled}
+              disabled={disabled || success}
               type="submit"
               color="blue"
               fluid

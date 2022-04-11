@@ -3,11 +3,14 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const colors = require("colors");
 const morgan = require("morgan");
+
 const connectDB = require("./config/db");
 
 const app = express();
 dotenv.config();
 connectDB();
+
+
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -19,8 +22,12 @@ app.use(helmet())
 
 
 app.use(express.static(__dirname + "/client/build"));
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
 
 app.use("/api", require("./routes/userRoutes"));
+app.use('/api/upload', require('./routes/uploadRoutes'));
+
 
 
 app.get("*", (req, res) => {

@@ -121,6 +121,7 @@ export const updateProfile =
     date_of_birth,
     address,
     mobile_number,
+    avatar
   ) =>
   async (dispatch,getState) => {
     try {
@@ -145,7 +146,8 @@ export const updateProfile =
         email,
         date_of_birth,
         mobile_number,
-        address
+        address,
+        avatar
       }, config);
 
       dispatch({

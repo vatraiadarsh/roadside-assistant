@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Form, Segment, Button, Icon, Message } from "semantic-ui-react";
+import axios from 'axios'
+import { Form, Segment, Button, Icon, Message,Image } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { gender as g, title as t } from "../../utils/index";
 import { updateProfile } from "../../actions/userActions";
@@ -22,6 +23,7 @@ function EditProfile() {
     date_of_birth: formatted_date,
     mobile_number: userInfo?.mobile_number,
     address: userInfo?.address,
+    avatar:userInfo?.avatar,
   };
 
   const [user, setUser] = useState(INITIAL_STATE);
@@ -37,6 +39,27 @@ function EditProfile() {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const uploadFileHandler = async(e) => {
+   
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("avatar", file);
+   
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const { data } = await axios.post('/api/upload', formData, config);
+      setUser((prevState) => ({ ...prevState, avatar: data }));
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     const {
@@ -48,6 +71,7 @@ function EditProfile() {
       date_of_birth,
       address,
       mobile_number,
+      avatar
     } = user;
     e.preventDefault();
     dispatch(
@@ -59,7 +83,8 @@ function EditProfile() {
         gender,
         date_of_birth,
         address,
-        mobile_number
+        mobile_number,
+        avatar
       )
     );
   };
@@ -72,6 +97,7 @@ function EditProfile() {
       window.location.reload();
     }
 
+
     if (
       user.title === userInfo?.title &&
       user.first_name === userInfo?.first_name &&
@@ -80,13 +106,17 @@ function EditProfile() {
       user.email === userInfo?.email &&
       user.date_of_birth === userInfo?.date_of_birth.slice(0, 10) &&
       user.mobile_number === userInfo?.mobile_number &&
-      user.address === userInfo?.address
+      user.address === userInfo?.address,
+      user.avatar === userInfo?.avatar
+     
     ) {
+      console.log()
       setDisabled(true);
     } else {
       setDisabled(false);
     }
   }, [user, userInfo, success]);
+
   return (
     <>
       <Message success hidden={!success}>
@@ -162,6 +192,19 @@ function EditProfile() {
             value={user.date_of_birth}
             required
           />
+
+          <Form.Input
+              fluid
+              type="file"
+              onChange={uploadFileHandler}
+              iconPosition="left"
+              icon="upload"   
+              id="avatar"       
+          />
+
+
+          <Image style={{marginBottom:13}} size="small"  src={`${user.avatar}`} />
+
 
           <Form.Input
             fluid

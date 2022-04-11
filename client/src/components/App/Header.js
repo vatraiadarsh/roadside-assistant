@@ -63,9 +63,7 @@ const Header = () => {
           <Menu.Item position="right">
             <Menu.Item header>
               Welcome,&nbsp;
-              {userInfo &&
-                userInfo.first_name.charAt(0).toUpperCase() +
-                  userInfo.first_name.slice(1)}
+              {userInfo ? userInfo.first_name.charAt(0).toUpperCase() + userInfo.first_name.slice(1) : ""}
             </Menu.Item>
             <NavLink to="/profile">
               <Menu.Item>
