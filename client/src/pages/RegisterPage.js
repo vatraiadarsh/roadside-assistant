@@ -23,16 +23,16 @@ const Register = () => {
 
 
   const INITIAL_STATE = {
-    title: "Mr",
-    firstName: "Adarsha",
-    lastName: "Bhattarai",
-    gender: "Male",
-    email: "apple@apple.com",
-    date_of_birth: "2011-03-09",
-    mobile_number: "9876433234",
-    address: "234 apple street",
-    password: "appleapple",
-    confirmPassword: "appleapple",
+    title: "",
+    firstName: "",
+    lastName: "",
+    gender: "",
+    email: "",
+    date_of_birth: "",
+    mobile_number: "",
+    address: "",
+    password: "",
+    confirmPassword: "",
   };
 
   const [user, setUser] = useState(INITIAL_STATE);
