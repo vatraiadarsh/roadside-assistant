@@ -44,7 +44,8 @@ function ManageUsers() {
                 <Grid.Column key={usr._id}>
                   <Card>
                  {/* src="/uploads\avatar-1649652294259.jpg" */}
-                    <Image src={`${usr.avatar}`} wrapped ui={false} />
+                    <Image src={"/uploads/"+usr.avatar} wrapped ui={false} />
+                    {/* src={`http://localhost:3000/uploads${user.avatar}`} */}
                   
                    
 
