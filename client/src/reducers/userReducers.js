@@ -12,6 +12,9 @@ const {
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAILURE,
+  MAKE_USER_PROFESSIONAL_REQUEST,
+  MAKE_USER_PROFESSIONAL_SUCCESS,
+  MAKE_USER_PROFESSIONAL_FAILURE,
 } = require("../constants/userConstants");
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -68,3 +71,16 @@ export const userListReducer = (state = { usrs: [] }, action) => {
       return state;
   }
 }
+
+export const makeUserProfessionalReducer = (state = {}, action) => {
+  switch (action.type) {
+    case MAKE_USER_PROFESSIONAL_REQUEST:
+      return { loading: true };
+    case MAKE_USER_PROFESSIONAL_SUCCESS:
+      return { loading: false, success: true };
+    case MAKE_USER_PROFESSIONAL_FAILURE:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};

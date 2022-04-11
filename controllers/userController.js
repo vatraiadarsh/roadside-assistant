@@ -139,3 +139,13 @@ exports.getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
 });
+
+exports.makeProfessional = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.role = "professional";
+  }
+
+  const updatedUser = await user.save();
+  res.json(updatedUser);
+});

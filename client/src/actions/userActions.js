@@ -15,6 +15,9 @@ import {
   USER_LIST_FAILURE,
   USER_LIST_SUCCESS,
   USER_LIST_REQUEST,
+  MAKE_USER_PROFESSIONAL_REQUEST,
+  MAKE_USER_PROFESSIONAL_SUCCESS,
+  MAKE_USER_PROFESSIONAL_FAILURE,
 } from "../constants/userConstants";
 
 export const register =
@@ -200,3 +203,33 @@ export const getUserList = () => async (dispatch,getState) => {
     });
   }
 };
+
+export const makeProfessional = (userId) => async (dispatch,getState) => {
+  try {
+    dispatch({
+      type: MAKE_USER_PROFESSIONAL_REQUEST,
+    });
+
+    const{userLogin:{userInfo}} = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.put(`/api/make-professional/${userId}`, {}, config);
+
+    dispatch({
+      type: MAKE_USER_PROFESSIONAL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: MAKE_USER_PROFESSIONAL_FAILURE,
+      payload: error.response?.data.error
+        ? error.response.data.error
+        : error.response,
+    });
+  }
+}

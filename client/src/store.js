@@ -8,6 +8,7 @@ import {
   userLoginReducer,
   profileUpdateReducer,
   userListReducer,
+  makeUserProfessionalReducer,
 } from "./reducers/userReducers";
 
 // save userInfo to the store
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   profileUpdate: profileUpdateReducer,
   userList: userListReducer,
+  makeUserProfessional: makeUserProfessionalReducer,
  
 });
 
