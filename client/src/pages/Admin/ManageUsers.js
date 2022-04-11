@@ -43,8 +43,8 @@ function ManageUsers() {
               {usrs?.map((usr) => (
                 <Grid.Column key={usr._id}>
                   <Card>
-                 
-                    <Image src={`http://localhost:3000/${usr.avatar}`} wrapped ui={false} />
+                 {/* src="/uploads\avatar-1649652294259.jpg" */}
+                    <Image src={`${usr.avatar}`} wrapped ui={false} />
                   
                    
 

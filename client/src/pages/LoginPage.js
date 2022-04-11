@@ -44,6 +44,9 @@ const Login = () => {
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
+       <Message info content="Please click the login-button to login as admin, if you want to login as user, please create a new account and log in
+       .&nbsp;&nbsp;&nbsp;NOTE:: if you logged in as admin you can make the user as 'professionals'" />
+        
         <Header as="h2" textAlign="center">
           <Image src="/logo.png" /> Log-in to your account
         </Header>
