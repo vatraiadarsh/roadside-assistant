@@ -24,9 +24,12 @@ function ManageUsers() {
     } else {
       // send to home page
       navigate("/");
-
     }
-  }, [dispatch, userInfo, userInfo?.role]);
+    // when the component unmounts
+    if (successMakeProfessional) {
+      dispatch(getUserList());
+    }
+  }, [dispatch,successMakeProfessional, userInfo, userInfo?.role]);
 
 
 
@@ -70,7 +73,6 @@ function ManageUsers() {
                           <Button secondary
                             onClick={() => {
                               dispatch(makeProfessional(usr._id));
-                              dispatch(getUserList());
                             }}
                           >
                             Make User
@@ -87,7 +89,6 @@ function ManageUsers() {
                         <Button color='green'
                           onClick={() => {
                             dispatch(makeProfessional(usr._id));
-                            dispatch(getUserList());
                           }}
                         >
                           Make professional
