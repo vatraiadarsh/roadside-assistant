@@ -43,7 +43,7 @@ function ManageUsers() {
               {usrs?.map((usr) => (
                 <Grid.Column key={usr._id}>
                   <Card>
-                    <Image src={"/uploads/"+usr.avatar} wrapped ui={false} />
+                    <Image src={usr.avatar} wrapped ui={false} />
                     <Card.Content>
                       <Card.Header>{usr.title}{" "}{usr.first_name} {usr.last_name}</Card.Header>
                       <Card.Meta>

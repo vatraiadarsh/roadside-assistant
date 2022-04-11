@@ -203,7 +203,7 @@ function EditProfile() {
           />
 
 
-          <Image style={{marginBottom:13}} size="small" src={"/uploads"+user.avatar} />
+          <Image style={{marginBottom:13}} size="small" src={user.avatar} />
           
 
           <Form.Input
