@@ -21,7 +21,6 @@ const Register = () => {
   const userRegister = useSelector(state => state.userRegister);
   const {loading,error,success} = userRegister;
 
-
   const INITIAL_STATE = {
     title: "",
     firstName: "",

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Button,
   Divider,
@@ -10,6 +11,7 @@ import {
   Message
 } from 'semantic-ui-react'
 function HomePage() {
+  const navigate = useNavigate()
   return (
     <Container >
       <div style={{ marginTop: "12rem" }}></div>
@@ -46,7 +48,7 @@ function HomePage() {
                 <Icon name='credit card alternative' />
                 Pay-on-demand
               </Header>
-              <Button secondary icon labelPosition='right'>
+              <Button onClick={() => navigate("/request-service")} secondary icon labelPosition='right'>
                 Next
                 <Icon name='right arrow' />
               </Button>
