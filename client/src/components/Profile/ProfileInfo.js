@@ -11,7 +11,7 @@ function ProfileInfo() {
 
   return (
     <>
-      <Image size="medium"  src={userInfo?.avatar} alt="avatar" />
+      <Image size="medium"  src={userInfo.avatar} alt="avatar" />
       <Table celled striped>
         <Table.Header>
           <Table.Row>

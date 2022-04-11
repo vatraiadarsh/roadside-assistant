@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const colors = require("colors");
+const path = require("path");
 const morgan = require("morgan");
 
 const connectDB = require("./config/db");
@@ -21,8 +22,9 @@ app.use(helmet())
 
 
 
-app.use(express.static(__dirname + "/client/build"));
-app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use(express.static(path.join(__dirname, '/frontend/build')))
+
+app.use('/uploads', express.static(path.resolve(__dirname, '/uploads/')));
 
 
 app.use("/api", require("./routes/userRoutes"));
@@ -31,7 +33,7 @@ app.use('/api/upload', require('./routes/uploadRoutes'));
 
 
 app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/client/build/index.html");
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 });
 
 
