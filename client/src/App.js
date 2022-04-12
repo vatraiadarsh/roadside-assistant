@@ -8,6 +8,8 @@ import Profile from "./pages/ProfilePage";
 import ManageUsers from "./pages/Admin/ManageUsers";
 import ServiceRequestPage from "./pages/ServiceRequestPage";
 import RequestedServices from "./pages/RequestedServices";
+import EditProfile from "./components/Profile/EditProfile";
+import RequestedService from "./components/Profile/RequestedService";
 
 
 const App = () => {
@@ -21,11 +23,12 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/admin/users" element={<ManageUsers/>} />
+          <Route path="/admin/users" element={<ManageUsers />} />
           <Route path="/request-service" element={<ServiceRequestPage />} />
-          <Route path="/requested-service" element={<RequestedServices />} />  
+          <Route path="/requested-services" element={<RequestedServices />} />
         </Routes>
-        <Footer/>
+        
+        <Footer />
       </BrowserRouter>
     </>
   );
