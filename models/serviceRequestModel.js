@@ -34,10 +34,7 @@ const serviceRequestSchema = new Schema({
         type: String,
         required: true
     },
-    service_status: {
-        type: Boolean,
-        
-    },
+    
     service_requiredin_address: {
         type: String,
         required: true
@@ -50,9 +47,20 @@ const serviceRequestSchema = new Schema({
         type: Number,
         required: true
     },
+    price: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: ['Pending', 'Accepted', 'Rejected'],
+        default: 'Pending'     
+    },
    
 
-},  {timestamps: true ,});
+},  {timestamps: true });
 
 
 serviceRequestSchema.pre('save', async function (next) {
