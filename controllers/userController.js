@@ -34,6 +34,7 @@ exports.register = asyncHandler(async (req, res) => {
     password,
   });
 
+
   if (user) {
     const {
       title,

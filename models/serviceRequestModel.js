@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const geocoder = require("../utils/geocoader");
 
 const serviceRequestSchema = new Schema({
 
@@ -8,7 +9,6 @@ const serviceRequestSchema = new Schema({
         ref: 'User',
         required: true
     },
-
     model: {
         type: String,
         required: true
@@ -22,7 +22,7 @@ const serviceRequestSchema = new Schema({
         required: true
     },
     number_plate: {
-        type: Number,
+        type: String,
         required: true
     },
     service_type: {
@@ -36,45 +36,38 @@ const serviceRequestSchema = new Schema({
     },
     service_status: {
         type: Boolean,
+        
     },
-
     service_requiredin_address: {
         type: String,
         required: true
-
     },
-    location: {
-        // GeoJSON Point
-        type: {
-            type: String,
-            enum: ['Point'],
-        },
-        coordinates: {
-            type: [Number],
-            index: '2dsphere'
-        },
-        address: {
-            type: String,
-            required: true
-        },
-        formattedAddress: {
-            type: String,
-        },
-        street: {
-            type: String,
-        },
-        city: {
-            type: String,
-        },
-        state: {
-            type: String,
-        },
-        zipcode: {
-            type: String,
-        },
-        country: {
-            type: String,
-        },
-    }
+    service_requiredin_lat: {
+        type: Number,
+        required: true
+    },
+    service_requiredin_long: {
+        type: Number,
+        required: true
+    },
+   
 
-}, { timeseries: true });
+},  {timestamps: true ,});
+
+
+serviceRequestSchema.pre('save', async function (next) {
+    const loc = await geocoder.geocode(this.service_requiredin_address);
+    this.location ={
+        type: 'Point',
+        coordinates: [loc[0].longitude, loc[0].latitude],
+        formattedAddress: loc[0].formattedAddress,
+        street: loc[0].streetName,
+        city: loc[0].city,
+        state: loc[0].stateCode,
+        zipcode: loc[0].zipcode,
+        country: loc[0].countryCode
+    }
+});
+
+
+module.exports = mongoose.model('ServiceRequest', serviceRequestSchema);

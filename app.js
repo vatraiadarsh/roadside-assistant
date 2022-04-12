@@ -27,6 +27,7 @@ app.use('/uploads', express.static((__dirname + '/uploads')))
 
 app.use("/api", require("./routes/userRoutes"));
 app.use('/api/upload', require('./routes/uploadRoutes'));
+app.use("/api", require("./routes/serviceRequestRoutes"));
 
 
 

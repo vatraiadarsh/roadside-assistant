@@ -125,10 +125,6 @@ function EditProfile() {
       <Message error hidden={!error}>
         <Message.Header>{error}</Message.Header>
       </Message>
-      <div style={{ marginBottom: "1rem" }}>
-        <Icon name="edit" />
-        Edit Profile
-      </div>
       <Form loading={loading} onSubmit={handleSubmit}>
         <Segment stacked color="green">
           <Form.Select

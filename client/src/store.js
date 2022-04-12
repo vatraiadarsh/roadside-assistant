@@ -10,6 +10,7 @@ import {
   userListReducer,
   makeUserProfessionalReducer,
 } from "./reducers/userReducers";
+import { incommingServiceRequestReducer,getAllServicesReducer } from "./reducers/serviceRequestReducer";
 
 // save userInfo to the store
 const userInfoFromStorege = localStorage.getItem("userInfo")
@@ -27,7 +28,8 @@ const reducer = combineReducers({
   profileUpdate: profileUpdateReducer,
   userList: userListReducer,
   makeUserProfessional: makeUserProfessionalReducer,
- 
+  incommingServiceRequest:incommingServiceRequestReducer,
+  getAllServices:getAllServicesReducer,
 });
 
 const middlewares = [thunk, logger];
