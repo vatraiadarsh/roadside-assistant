@@ -44,8 +44,21 @@ exports.IncommingServiceRequest = asyncHandler(async (req, res, next) => {
     next();
 });
 
-exports.requestedService = asyncHandler(async (req, res, next) => {
+exports.requestedServiceByUser = asyncHandler(async (req, res, next) => {
     const serviceRequest = await ServiceRequest.find({ user: req.user._id });
+    if (serviceRequest) {
+        res.status(200).json(serviceRequest);
+    } else {
+        res.status(400).json({
+            error: "Service request not found"
+        });
+    }
+    next();
+});
+
+exports.getAllRequestedService = asyncHandler(async (req, res, next) => {
+    // populate user without password
+    const serviceRequest = await ServiceRequest.find().populate("user", { password: 0 });
     if (serviceRequest) {
         res.status(200).json(serviceRequest);
     } else {

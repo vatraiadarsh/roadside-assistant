@@ -7,6 +7,7 @@ import Register from "./pages/RegisterPage";
 import Profile from "./pages/ProfilePage";
 import ManageUsers from "./pages/Admin/ManageUsers";
 import ServiceRequestPage from "./pages/ServiceRequestPage";
+import RequestedServices from "./pages/RequestedServices";
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin/users" element={<ManageUsers/>} />
           <Route path="/request-service" element={<ServiceRequestPage />} />
+          <Route path="/requested-service" element={<RequestedServices />} />  
         </Routes>
         <Footer/>
       </BrowserRouter>

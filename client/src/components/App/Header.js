@@ -36,7 +36,7 @@ const Header = () => {
             </Menu.Item>
           </NavLink>
 
-          {userInfo?.role !== "professional" ? (
+          {userInfo?.role == "user" ? (
             <NavLink to="/request-service">
               <Menu.Item>
                 <Icon name="car" size="large" />
@@ -44,7 +44,12 @@ const Header = () => {
               </Menu.Item>
             </NavLink>
           )
-            : null}
+            : <NavLink to="/requested-service">
+              <Menu.Item>
+                <Icon name="wrench" size="large" />
+                Requested Services
+              </Menu.Item>
+            </NavLink>}
 
         </Menu.Item>
 

@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react'
 import { Message, Segment, List } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getServices } from '../../actions/serviceRequestAction'
+import { userRequestedServices } from "../../actions/serviceRequestActions";
 
 function RequestedService() {
   const dispatch = useDispatch();
 
-  const getAllServices = useSelector(state => state.getAllServices);
-  const { loading, error, services } = getAllServices;
-
-
+  const userRequestedService = useSelector(state => state.userRequestedService);
+  const { loading, error, success, services } = userRequestedService;
 
 
 
   useEffect(() => {
-    dispatch(getServices());
+    dispatch(userRequestedServices());
   }, [dispatch]);
 
   return (
@@ -23,12 +21,12 @@ function RequestedService() {
         <Message.Header>{error}</Message.Header>
       </Message>}
       {services && services.map(service => (
-        <Segment loading={loading} stacked color="green">
+        <Segment key={service._id}>
           <List divided relaxed>
             <List.Item>
               <List.Icon name='car' size='large' verticalAlign='middle' />
-              <List.Content>
-                <List.Header as='a'>Car Details:</List.Header>
+              <List.Content >
+                <List.Header  as='a'>Car Details:</List.Header>
                 <List.Description as='a'> {service.model} {service.make} {service.year} {service.number_plate}</List.Description>
               </List.Content>
             </List.Item>
@@ -61,13 +59,12 @@ function RequestedService() {
               </List.Content>
 
             </List.Item>
-
           </List>
-
-
-
-
         </Segment>
+
+
+
+
       ))}
 
 

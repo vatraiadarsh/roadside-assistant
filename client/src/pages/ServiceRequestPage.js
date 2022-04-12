@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container, Form, Message, Segment } from 'semantic-ui-react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { incommingService } from '../actions/serviceRequestAction';
-import {login} from '../actions/userActions';
+import { incommingService } from '../actions/serviceRequestActions';
 
 function ServiceRequestPage() {
     const dispatch = useDispatch();

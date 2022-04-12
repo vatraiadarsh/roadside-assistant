@@ -3,9 +3,13 @@ const {
     INCOMMING_SERVICE_REQUEST_REQUEST,
     INCOMMING_SERVICE_REQUEST_SUCCESS,
     INCOMMING_SERVICE_REQUEST_FAILURE,
-    SERVICE_REQUESTED_REQUEST,
-    SERVICE_REQUESTED_SUCCESS,
-    SERVICE_REQUESTED_FAILURE,
+    USER_REQUESTED_SERVICE_REQUEST,
+    USER_REQUESTED_SERVICE_SUCCESS,
+    USER_REQUESTED_SERVICE_FAILURE,
+    USER_REQUESTED_SERVICE_LIST_REQUEST,
+    USER_REQUESTED_SERVICE_LIST_SUCCESS,
+    USER_REQUESTED_SERVICE_LIST_FAILURE,
+
 } = require("../constants/serviceRequestConstants");
 
 
@@ -23,15 +27,30 @@ export const incommingServiceRequestReducer = (state = {}, action) => {
 };
 
 
-export const getAllServicesReducer = (state = { services: [] }, action) => {
+export const userRequestedServiceReducer = (state = {services:[]}, action) => {
     switch (action.type) {
-        case SERVICE_REQUESTED_REQUEST:
+        case USER_REQUESTED_SERVICE_REQUEST:
             return { loading: true };
-        case SERVICE_REQUESTED_SUCCESS:
+        case USER_REQUESTED_SERVICE_SUCCESS:
             return { loading: false, success: true, services: action.payload };
-        case SERVICE_REQUESTED_FAILURE:
+        case USER_REQUESTED_SERVICE_FAILURE:
             return { loading: false, error: action.payload };
         default:
             return state;
     }
 };
+
+export const userRequestedServiceListReducer = (state = {allServices:[]}, action) => {
+    switch (action.type) {
+        case USER_REQUESTED_SERVICE_LIST_REQUEST:
+            return { loading: true };
+        case USER_REQUESTED_SERVICE_LIST_SUCCESS:
+            return { loading: false, success: true, allServices: action.payload };
+        case USER_REQUESTED_SERVICE_LIST_FAILURE:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+
