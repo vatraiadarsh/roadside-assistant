@@ -1,20 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Grid, Menu, Segment, Loader } from "semantic-ui-react";
+import { useSelector,useDispatch } from "react-redux";
+import { Grid, Menu, Segment, Message } from "semantic-ui-react";
 import EditProfile from "../components/Profile/EditProfile";
 import ProfileInfo from "../components/Profile/ProfileInfo";
 import RequestedService from "../components/Profile/RequestedService";
 import ApprovedServices from "../components/Profile/ApprovedServices";
+import { viewAllAcceptedService } from "../actions/serviceRequestActions";
 
 function ProfilePage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const [state, setState] = React.useState('profileInfo');
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [PaymentFailure, setPaymentFailure] = useState(false);
+
 
   useEffect(() => {
+    //  Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get("success")) {
+      setPaymentSuccess(true);
+      dispatch(viewAllAcceptedService());
+      setState("approvedServices");
+
+
+    }
+
+    if (query.get("canceled")) {
+      setPaymentFailure(true);
+      setState("approvedServices");
+    }
     if (!userInfo) {
       navigate("/login");
     }
@@ -22,12 +42,13 @@ function ProfilePage() {
 
   return (
 
-<Grid
+    <Grid
       textAlign="center"
       stackable
       columns={4}
       style={{ marginTop: "5rem" }}
     >
+
       <Grid.Column width={4}>
         <Menu fluid vertical tabular>
           <Menu.Item
@@ -43,7 +64,7 @@ function ProfilePage() {
             onClick={() => {
               setState('editProfile');
             }}
-          
+
           />
           <Menu.Item
             name="requested services"
@@ -60,6 +81,7 @@ function ProfilePage() {
             }}
           />
         </Menu>
+
       </Grid.Column>
       {state === 'profileInfo' && (
         <Grid.Column stretched width={8}>
@@ -86,12 +108,45 @@ function ProfilePage() {
       {state === 'approvedServices' && (
         <Grid.Column width={8}>
           <Segment>
+            {PaymentFailure && <Message negative>
+              <Message.Header>Payment canceled. Please try again or contact us for assistance.</Message.Header>
+            </Message>}
+            {paymentSuccess && <Message positive>
+              <Message.Header>Payment successful. Thank you for your payment.</Message.Header>
+            </Message>}
+            <Message info>
+              <Message.Header>Fake cards for payment</Message.Header>
+              <Message.Content>
+                <Message.List>
+                  <Message.Item>
+                    <b>Visa</b>
+                    <p> Card Number: 4242 4242 4242 4242
+                      <br />
+                      Exp: Any future date
+                      <br />
+                      CVV: Any 3 digits
+                    </p>
+                  </Message.Item>
+                  <Message.Item>
+                    <b>Mastercard</b>
+                    <p>Card Number: 5555 5555 5555 4444
+                      <br />
+                      Exp: Any future date
+                      <br />
+                      CVV: Any 3 digits
+                    </p>
+                  </Message.Item>
+                </Message.List>
+              </Message.Content>
+            </Message>
+
+
             <ApprovedServices />
           </Segment>
         </Grid.Column>
       )}
 
-      
+
     </Grid>
   );
 }

@@ -55,7 +55,7 @@ const serviceRequestSchema = new Schema({
     status: {
         type: String,
         required: true,
-        enum: ['Pending', 'Accepted', 'Rejected'],
+        enum: ['Pending', 'Accepted', 'Paid', 'Completed'],
         default: 'Pending'     
     },
     accepted_by: {
@@ -63,6 +63,7 @@ const serviceRequestSchema = new Schema({
         ref: 'User',
         default: null
     },
+
     
    
 

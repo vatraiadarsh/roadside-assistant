@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { viewAllAcceptedService } from '../../actions/serviceRequestActions';
@@ -11,12 +11,14 @@ function ApprovedServices() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
   const viewAcceptedService = useSelector(state => state.viewAcceptedService);
   const { loading, error, success, acceptedServices } = viewAcceptedService;
 
+
   useEffect(() => {
     dispatch(viewAllAcceptedService());
-  }, [dispatch]);
+  }, [dispatch,]);
 
 
   return (
@@ -27,31 +29,6 @@ function ApprovedServices() {
       </Message>}
       {acceptedServices && acceptedServices.map(as => (
         <Segment key={as._id}>
-          {/* <Card.Group >
-            <Card>
-              <Card.Content>
-                <Image
-                  floated='right'
-                  size='mini'
-                  src={as.accepted_by.avatar? as.accepted_by.avatar : '/noimage.jpg'}
-                />
-                <Card.Header>{`${as.accepted_by?.title} ${as.accepted_by?.first_name} ${as.accepted_by?.last_name}`}</Card.Header>
-                <Card.Meta>Friends of Elliot</Card.Meta>
-                <Card.Description>
-                  Steve wants to add you to the group <strong>best friends</strong>
-                </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <div className='ui two buttons'>
-                  <Button basic color='green'>
-                    Approved
-                  </Button>
-                  
-                </div>
-              </Card.Content>
-            </Card>
-          </Card.Group> */}
-
           <Grid columns={2}>
             <Header dividing color='red' size='small' floated='left' as='a'>Approved By:
             </Header>
@@ -82,17 +59,27 @@ function ApprovedServices() {
                       <Header size='small' floated='left'>{as.accepted_by?.address}</Header>
                     </List.Content>
                   </List.Item>
-                  <Divider/>
-                  <List.Item header >
-                  <div className='ui two buttons'>
-                    <Button basic color='green'>
-                     <Header size='small' >Pay ${as.price}</Header>
-                    </Button>
-                    <Button disabled basic color='red'>
-                      Decline
-                    </Button>
-                  </div>
+                  <Divider />
+                  {as.status === 'Paid' && <List.Item>
+                    <List.Icon color='purple' name='check' />
+                    <List.Content>
+                      <Header color='purple' size='small' floated='left'>{`${as.status} $${as.price}`}</Header>
+                    </List.Content>
+                  </List.Item>}
+                  {as.status === 'Accepted' &&
+                    <List.Item header >
+                      <div className='ui two buttons'>
+                        <form action={`/create-checkout-session/${as._id}`} method="POST">
+                          <Button type='submit' basic color='green'>
+                            <Header size='small' >Pay ${as.price}</Header>
+                          </Button>
+                        </form>
+                        <Button disabled basic color='red'>
+                          Decline
+                        </Button>
+                      </div>
                     </List.Item>
+                  }
 
                 </List>
               </Grid.Column>

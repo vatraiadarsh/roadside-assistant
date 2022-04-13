@@ -29,6 +29,8 @@ app.use("/api", require("./routes/userRoutes"));
 app.use('/api/upload', require('./routes/uploadRoutes'));
 app.use("/api", require("./routes/serviceRequestRoutes"));
 
+// stripe payment route.
+require("./routes/stripePaymentRoute")(app);
 
 
 app.get("*", (req, res) => {
@@ -44,3 +46,5 @@ app.listen(PORT, () =>
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
   )
 );
+
+module.exports = app;

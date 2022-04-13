@@ -1,7 +1,10 @@
 const ServiceRequest = require("../models/serviceRequestModel");
 const asyncHandler = require("express-async-handler");
-
 const geocoder = require("../utils/geocoader");
+const stripe = require("stripe")('sk_test_51Ko29zJRs3JxT9wsThV502e8WCkzYb4FYuaxw1WVRWKOo7pMsRChcAlXrRQF0ypLAFcK4p0hStldGrYQw3JqNdig00obutY7qF');
+const express = require("express");
+const app = express();
+
 
 exports.IncommingServiceRequest = asyncHandler(async (req, res, next) => {
 
@@ -95,7 +98,8 @@ exports.approveRequestedService = asyncHandler(async (req, res, next) => {
 });
 
 exports.viewAcceptedService = asyncHandler(async (req, res, next) => {
-    const serviceRequest = await ServiceRequest.find({ status: 'Accepted' }).populate("accepted_by", { password: 0 });
+    const serviceRequest = await ServiceRequest.find({ $or: [{ "status": "Accepted" }, { "status": "Paid" }] }).populate("accepted_by", { password: 0 });
+
     if (serviceRequest) {
         res.status(200).json(serviceRequest);
     } else {

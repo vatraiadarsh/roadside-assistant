@@ -9,8 +9,6 @@ function RequestedService() {
   const userRequestedService = useSelector(state => state.userRequestedService);
   const { loading, error, success, services } = userRequestedService;
 
-
-
   useEffect(() => {
     dispatch(userRequestedServices());
   }, [dispatch]);

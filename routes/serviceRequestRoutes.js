@@ -12,6 +12,5 @@ router.put('/approve-requested-service/:id',protect,authorize('professional'),ap
 router.get('/view-accepted-services',protect,authorize('user'),viewAcceptedService);
 
 
-
 module.exports = router;
 
