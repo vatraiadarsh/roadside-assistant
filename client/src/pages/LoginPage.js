@@ -49,7 +49,7 @@ const Login = () => {
           <br/>
           <Message.Content>
             <p><i>admin@example.com</i>, password:<i>admin</i></p>
-            <p><i>professional@example.com</i>, professional:<i>admin</i></p>
+            <p><i>professional@example.com</i>, password:<i>professional</i></p>
             <p><i>user@example.com</i>, password:<i>user</i></p>
           </Message.Content>
 
