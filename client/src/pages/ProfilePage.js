@@ -5,6 +5,7 @@ import { Grid, Menu, Segment, Loader } from "semantic-ui-react";
 import EditProfile from "../components/Profile/EditProfile";
 import ProfileInfo from "../components/Profile/ProfileInfo";
 import RequestedService from "../components/Profile/RequestedService";
+import ApprovedServices from "../components/Profile/ApprovedServices";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -51,6 +52,13 @@ function ProfilePage() {
               setState('requestedServices');
             }}
           />
+          <Menu.Item
+            name="approved services"
+            active={state === 'approvedServices'}
+            onClick={() => {
+              setState('approvedServices');
+            }}
+          />
         </Menu>
       </Grid.Column>
       {state === 'profileInfo' && (
@@ -75,6 +83,14 @@ function ProfilePage() {
           </Segment>
         </Grid.Column>
       )}
+      {state === 'approvedServices' && (
+        <Grid.Column width={8}>
+          <Segment>
+            <ApprovedServices />
+          </Segment>
+        </Grid.Column>
+      )}
+
       
     </Grid>
   );

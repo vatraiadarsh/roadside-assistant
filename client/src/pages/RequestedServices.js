@@ -1,8 +1,8 @@
-import React,{useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Loader, Menu, Icon, Table, Image, Header, Button, Label } from 'semantic-ui-react';
+import { Loader, Menu, Icon, Table, Image, Header, Button, Label, Modal, Form } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userRequestedServiceLists } from '../actions/serviceRequestActions';
+import { userRequestedServiceLists, getApproveRequestedService } from '../actions/serviceRequestActions';
 
 function RequestedServices() {
 
@@ -13,7 +13,23 @@ function RequestedServices() {
     const { userInfo } = userLogin;
 
     const userRequestedServiceList = useSelector(state => state.userRequestedServiceList);
-    const { loading,  allServices } = userRequestedServiceList;
+    const { loading, allServices } = userRequestedServiceList;
+
+    //needed just to fetch the data once again when successApprove is triggered
+    const approveRequestedService = useSelector(state => state.approveRequestedService);
+    const { loading: loadingApprove, success: successApprove } = approveRequestedService;
+
+    const [modal, setModal] = useState(false);
+    const [price, setPrice] = useState(0);
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     // dispatch(userRequestedServiceLists(userInfo.userId,price));
+    //     // disoatch with the service id and price
+    //     dispatch(approveRequestedService(price));
+    //     console.log(price);
+    //     setModal(false);
+    // }
 
     useEffect(() => {
         if (userInfo?.role !== 'user') {
@@ -21,7 +37,10 @@ function RequestedServices() {
         } else {
             navigate('/login');
         }
-    }, [dispatch,navigate, userInfo]);
+        if (successApprove) {
+            dispatch(userRequestedServiceLists());
+        }
+    }, [dispatch, navigate, userInfo, successApprove]);
 
     return (
         <>
@@ -45,7 +64,7 @@ function RequestedServices() {
                                 <Table.HeaderCell>Requested on</Table.HeaderCell>
                                 <Table.HeaderCell>Price</Table.HeaderCell>
                                 <Table.HeaderCell>Status</Table.HeaderCell>
-                                <Table.HeaderCell>Action</Table.HeaderCell>
+                                {userInfo?.role === "professional" && <Table.HeaderCell>Action</Table.HeaderCell>}
 
                             </Table.Row>
                         </Table.Header>
@@ -74,16 +93,35 @@ function RequestedServices() {
                                     <Table.Cell>
                                         <Label ribbon color={service.status === 'Pending' ? 'yellow' : service.status === 'Accepted' ? 'green' : 'red'}>{service.status}</Label>
                                     </Table.Cell>
-                                    <Table.Cell>
+                                    {userInfo?.role === "professional" && <Table.Cell>
                                         {service.status === 'Pending' ?
-                                            <Button color='green' onClick={() => navigate(`/service-request/${service._id}`)}>Approve</Button>
-                                            // edit
+                                            <>
+                                                <Form loading={loadingApprove} onSubmit={() => dispatch(getApproveRequestedService(service._id, price))}>
+                                                    <Form.Field >
+                                                        <input type="number"
+                                                            name="price"
+                                                            onChange={(e) =>
+                                                                setPrice(e.target.value)
+                                                            }
+                                                            required placeholder='Price' />
+
+                                                    </Form.Field>
+                                                    <Form.Field>
+                                                        <Button type='submit' color='green' >Approve Service</Button>
+
+                                                    </Form.Field>
+                                                </Form>
+                                            </>
 
                                             :
                                             null}
 
 
                                     </Table.Cell>
+                                    }
+
+
+
                                 </Table.Row>
                             </Table.Body>
                         ))}
@@ -111,6 +149,8 @@ function RequestedServices() {
                         </Table.Footer>
 
                     </Table>
+
+
                 </>
                 : null}
 

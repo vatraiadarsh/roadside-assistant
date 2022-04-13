@@ -58,6 +58,12 @@ const serviceRequestSchema = new Schema({
         enum: ['Pending', 'Accepted', 'Rejected'],
         default: 'Pending'     
     },
+    accepted_by: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        default: null
+    },
+    
    
 
 },  {timestamps: true });

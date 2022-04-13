@@ -10,7 +10,16 @@ import {
   userListReducer,
   makeUserProfessionalReducer,
 } from "./reducers/userReducers";
-import { incommingServiceRequestReducer,userRequestedServiceReducer,userRequestedServiceListReducer } from "./reducers/serviceRequestReducer";
+
+import {
+  incommingServiceRequestReducer,
+  userRequestedServiceReducer,
+  userRequestedServiceListReducer,
+  approveRequestedServiceReducer,
+  viewAcceptedServiceReducer
+}
+
+  from "./reducers/serviceRequestReducer";
 
 // save userInfo to the store
 const userInfoFromStorege = localStorage.getItem("userInfo")
@@ -28,9 +37,11 @@ const reducer = combineReducers({
   profileUpdate: profileUpdateReducer,
   userList: userListReducer,
   makeUserProfessional: makeUserProfessionalReducer,
-  incommingServiceRequest:incommingServiceRequestReducer,
-  userRequestedService:userRequestedServiceReducer,
-  userRequestedServiceList:userRequestedServiceListReducer,
+  incommingServiceRequest: incommingServiceRequestReducer,
+  userRequestedService: userRequestedServiceReducer,
+  userRequestedServiceList: userRequestedServiceListReducer,
+  approveRequestedService: approveRequestedServiceReducer,
+  viewAcceptedService: viewAcceptedServiceReducer,
 });
 
 const middlewares = [thunk, logger];
