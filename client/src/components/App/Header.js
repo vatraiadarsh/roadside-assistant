@@ -46,7 +46,16 @@ const Header = () => {
           )
             : null}
           {
-            userInfo?.role === ("admin" || "professional") ? (
+            userInfo?.role === "admin" ? (
+              <NavLink to="/requested-services">
+                <Menu.Item>
+                  <Icon name="wrench" size="large" />
+                  Requested Services
+                </Menu.Item>
+              </NavLink>
+            ) : null}
+            {
+            userInfo?.role ===  "professional" ? (
               <NavLink to="/requested-services">
                 <Menu.Item>
                   <Icon name="wrench" size="large" />
