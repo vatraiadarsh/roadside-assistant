@@ -36,7 +36,7 @@ const Header = () => {
             </Menu.Item>
           </NavLink>
 
-          {userInfo?.role == "user" ? (
+          {userInfo?.role === "user" ? (
             <NavLink to="/request-service">
               <Menu.Item>
                 <Icon name="car" size="large" />
@@ -44,13 +44,16 @@ const Header = () => {
               </Menu.Item>
             </NavLink>
           )
-            : <NavLink to="/requested-services">
-              <Menu.Item>
-                <Icon name="wrench" size="large" />
-                Requested Services
-              </Menu.Item>
-            </NavLink>}
-
+            : null}
+          {
+            userInfo?.role === ("admin" || "professional") ? (
+              <NavLink to="/requested-services">
+                <Menu.Item>
+                  <Icon name="wrench" size="large" />
+                  Requested Services
+                </Menu.Item>
+              </NavLink>
+            ) : null}
         </Menu.Item>
 
 
