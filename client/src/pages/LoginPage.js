@@ -44,11 +44,16 @@ const Login = () => {
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Message 
-        info
-        header="If you want to login as Admin"
-        content="Username:apple@apple.com  &  Password:appleapple"
-        />
+       <Message info>
+          <Message.Header>Choose how you want to login</Message.Header>
+          <br/>
+          <Message.Content>
+            <p><i>admin@example.com</i>, password:<i>admin</i></p>
+            <p><i>professional@example.com</i>, professional:<i>admin</i></p>
+            <p><i>user@example.com</i>, password:<i>user</i></p>
+          </Message.Content>
+
+       </Message>
         <Header as="h2" textAlign="center">
           <Image src="/logo.png" /> Log-in to your account
         </Header>
