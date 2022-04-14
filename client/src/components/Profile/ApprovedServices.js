@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { viewAllAcceptedService } from '../../actions/serviceRequestActions';
-import { Loader, Card, Button, Image, List, Header, Message, Segment, Grid, Divider } from 'semantic-ui-react';
+import { getIncommingPayment } from '../../actions/paymentAction';
+import { Loader, Card, Button, Image, List, Header, Message, Segment, Grid, Divider, Form } from 'semantic-ui-react';
 
 
 
@@ -11,14 +12,15 @@ function ApprovedServices() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   const viewAcceptedService = useSelector(state => state.viewAcceptedService);
   const { loading, error, success, acceptedServices } = viewAcceptedService;
 
 
   useEffect(() => {
     dispatch(viewAllAcceptedService());
-  }, [dispatch,]);
+    
+  }, [dispatch]);
+
 
 
   return (
@@ -30,7 +32,7 @@ function ApprovedServices() {
       {acceptedServices && acceptedServices.map(as => (
         <Segment key={as._id}>
           <Grid columns={2}>
-            <Header dividing color='red' size='small' floated='left' as='a'>Approved By:
+            <Header dividing color='red' size='small' floated='left' as='a'>Offer sent By:
             </Header>
             <Grid.Row>
               <Grid.Column width={10}>
@@ -69,14 +71,18 @@ function ApprovedServices() {
                   {as.status === 'Accepted' &&
                     <List.Item header >
                       <div className='ui two buttons'>
-                        <form action={`/create-checkout-session/${as._id}`} method="POST">
-                          <Button type='submit' basic color='green'>
+                        {as.payment_url === "" ?
+                          <Form>
+                            <Button onClick={() => dispatch(getIncommingPayment(as._id),window.location.reload())} type='submit' basic color='red'>
+                              <Header size='small' >Yes, I accept the offer of ${as.price}</Header>
+                            </Button>
+                          </Form>
+                          : <Button onClick={() => window.location.href = as.payment_url} basic color='green'>
                             <Header size='small' >Pay ${as.price}</Header>
-                          </Button>
-                        </form>
-                        <Button disabled basic color='red'>
-                          Decline
-                        </Button>
+
+                          </Button>}
+
+
                       </div>
                     </List.Item>
                   }

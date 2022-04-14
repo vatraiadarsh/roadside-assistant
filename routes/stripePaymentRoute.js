@@ -3,7 +3,7 @@ const ServiceRequest = require('../models/serviceRequestModel');
 
 module.exports = (app) => {
     const clientDomain = process.env.APPLICATION_CLIENT_DOMAIN;
-    app.post('/create-checkout-session/:id', async (req, res) => {
+    app.post('/create-checkout-session/:id', async (req, res,next) => {
         const serviceRequest = await ServiceRequest.findById(req.params.id);
         if (serviceRequest) {
             const session = await stripe.checkout.sessions.create({
@@ -24,18 +24,23 @@ module.exports = (app) => {
                 success_url: `${clientDomain}/profile?success=true`,
                 cancel_url: `${clientDomain}/profile?canceled=true`,
             });
-            res.redirect(303, session.url);
+            // save the url that is send to the client to db
+            serviceRequest.payment_url = session.url;
+            await serviceRequest.save();
+            return;
 
-            if (session) {
-                //  update the service request status to 'paid'
-                await ServiceRequest.findByIdAndUpdate(req.params.id, {
-                    status: 'Paid'
-                });
 
-            }
+            // if (session) {
+            //     //  update the service request status to 'paid'
+            //     await ServiceRequest.findByIdAndUpdate(req.params.id, {
+            //         status: 'Paid'
+            //     });
+
+            // }
         } else {
             res.redirect(303, `${clientDomain}/profile?canceled=true`);
         }
+        next();
 
     });
 }

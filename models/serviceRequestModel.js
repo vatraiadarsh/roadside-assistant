@@ -63,6 +63,10 @@ const serviceRequestSchema = new Schema({
         ref: 'User',
         default: null
     },
+    payment_url:{
+        type: String,
+        default: null
+    }
 
     
    

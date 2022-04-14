@@ -18,8 +18,7 @@ import {
   approveRequestedServiceReducer,
   viewAcceptedServiceReducer
 }
-
-  from "./reducers/serviceRequestReducer";
+from "./reducers/serviceRequestReducer";
 
 // save userInfo to the store
 const userInfoFromStorege = localStorage.getItem("userInfo")

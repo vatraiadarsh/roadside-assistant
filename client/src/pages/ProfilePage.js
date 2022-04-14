@@ -31,6 +31,14 @@ function ProfilePage() {
 
     }
 
+    if (query.get("reload")) {
+      setPaymentSuccess(true);
+      dispatch(viewAllAcceptedService());
+      setState("approvedServices");
+
+
+    }
+
     if (query.get("canceled")) {
       setPaymentFailure(true);
       setState("approvedServices");

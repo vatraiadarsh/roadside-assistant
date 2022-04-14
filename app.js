@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const colors = require("colors");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const connectDB = require("./config/db");
 
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 app.use(helmet())
+app.use(cors());
 
 
 
