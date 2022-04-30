@@ -86,6 +86,7 @@ function ApprovedServices() {
                       </div>
                     </List.Item>
                   }
+                  {as.payment_url}
 
                 </List>
               </Grid.Column>
