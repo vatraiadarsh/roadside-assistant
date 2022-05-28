@@ -27,16 +27,16 @@ module.exports = (app) => {
             // save the url that is send to the client to db
             serviceRequest.payment_url = session.url;
             await serviceRequest.save();
-            return;
+           
+            console.log(session);
+           
+            if (session) {
+                //  update the service request status to 'paid'
+                await ServiceRequest.findByIdAndUpdate(req.params.id, {
+                    status: 'Paid'
+                });
 
-
-            // if (session) {
-            //     //  update the service request status to 'paid'
-            //     await ServiceRequest.findByIdAndUpdate(req.params.id, {
-            //         status: 'Paid'
-            //     });
-
-            // }
+            }
         } else {
             res.redirect(303, `${clientDomain}/profile?canceled=true`);
         }

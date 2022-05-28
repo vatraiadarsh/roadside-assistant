@@ -16,10 +16,24 @@ function ApprovedServices() {
   const viewAcceptedService = useSelector(state => state.viewAcceptedService);
   const { loading, error, success, acceptedServices } = viewAcceptedService;
 
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [PaymentFailure, setPaymentFailure] = useState(false);
+
 
   useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get("success")) {
+      setPaymentSuccess(true);
+
+    }
+
+    if (query.get("canceled")) {
+      setPaymentFailure(true);
+    }
+
     dispatch(viewAllAcceptedService());
-    
+
   }, [dispatch]);
 
 
@@ -72,9 +86,9 @@ function ApprovedServices() {
                   {as.status === 'Accepted' &&
                     <List.Item header >
                       <div className='ui two buttons'>
-                        {as.payment_url === "" ?
+                        {as.payment_url ===  "" ?
                           <Form>
-                            <Button onClick={() => dispatch(getIncommingPayment(as._id),window.location.reload())} type='submit' basic color='red'>
+                            <Button onClick={() => dispatch(getIncommingPayment(as._id), window.location.reload())} type='submit' basic color='red'>
                               <Header size='small' >Yes, I accept the offer of ${as.price}</Header>
                             </Button>
                           </Form>
@@ -87,7 +101,7 @@ function ApprovedServices() {
                       </div>
                     </List.Item>
                   }
-                  {as.payment_url}
+
 
                 </List>
               </Grid.Column>

@@ -8,7 +8,8 @@ import {
   Icon,
   Segment,
   Container,
-  Message
+  Message,
+  Image
 } from 'semantic-ui-react'
 function HomePage() {
   const navigate = useNavigate()
@@ -18,6 +19,7 @@ function HomePage() {
       <Header as='h2' icon textAlign='center'>
         Welcome to Roadside assistance
       </Header>
+      <Image src='home.png' size='medium' centered />
       <Message info>
         <Message.Header>
           <Icon name='info circle' />
@@ -40,7 +42,7 @@ function HomePage() {
                 Membership subscription
               </Header>
 
-              <Button secondary>Continue with Membership subscription </Button>
+              <Button onClick={() => window.open("https://buy.stripe.com/test_14kbMp8y0dlTclacMM", '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes')}  secondary>Continue with Membership subscription </Button>
             </Grid.Column>
 
             <Grid.Column>

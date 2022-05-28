@@ -20,6 +20,7 @@ const services = [
         service_requiredin_address: '231 Main St',
         service_requiredin_lat: 123,
         service_requiredin_long: 123,
+        payment_url:""
     },
     {
         model: 'Toyota',
@@ -31,6 +32,7 @@ const services = [
         service_requiredin_address: '32 Main St',
         service_requiredin_lat: 123,
         service_requiredin_long: 123,
+        payment_url:""
     },
 ];
 
