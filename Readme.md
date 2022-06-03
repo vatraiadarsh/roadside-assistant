@@ -48,10 +48,12 @@ system (e.g. at minimum 20 motorists, 100 roadside assistance
 professionals and 20 service requests and transactions). A script to
 randomly generate these data.
 
-Home page
+#Home page
+
 ![image](https://user-images.githubusercontent.com/33037244/171819372-24db577b-e573-4663-b576-f7858cdebff8.png)
 
-logging in as admin
+#logging in as admin
+
 ![image](https://user-images.githubusercontent.com/33037244/171819493-2b32b2f4-b272-4ab6-8420-899b72021c89.png)
 
 profile page
